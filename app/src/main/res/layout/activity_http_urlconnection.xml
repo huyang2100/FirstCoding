@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="net.sourceforge.simcpux.activity.HttpURLConnectionActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_okhttp_manager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="OkhttpManager"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_okhttp_manager_poststring"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="OkhttpManagerPostString"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_xml_pull"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ParseXMLWithPull"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_json_object"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ParseJSONWithJSONObject"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_json_gson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ParseJSONWithGson"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_gson_json"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="GsonToJson"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HttpURLConnection Request"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_ok_synchronous_get"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Synchronous Get"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_ok_asynchronous_get"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Asynchronous Get"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_access_headers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Accessing Headers"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_post_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Posting a String"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_post_streaming"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Post Streaming"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_post_afile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Post a file"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_post_formparameters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Posting form parameters"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_post_multipartparameters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Posting a multipart request"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fadingEdgeLength="60dp"
+        android:requiresFadingEdge="vertical">
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+    </ScrollView>
+</LinearLayout>

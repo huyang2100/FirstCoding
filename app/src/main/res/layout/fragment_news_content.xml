@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="net.sourceforge.simcpux.net.yang.helloworld.fragment.NewsContentFragment">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:padding="15dp"
+        android:id="@+id/tv_title"
+        android:textStyle="bold"
+        android:text="About Android System"
+        android:textColor="@android:color/white"
+        android:textSize="36sp" />
+
+    <ScrollView
+        android:background="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_content"
+            android:padding="15dp"
+            android:lineSpacingMultiplier="1.3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Content"
+            android:textSize="24sp" />
+    </ScrollView>
+
+
+</LinearLayout>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RecyclerView"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/patch9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Patch9"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/sum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="System Ui Mode"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/translucentbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Translucent Bars"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/colorStatusBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ColorStatusBar"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/image_nimation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ImageAnimation"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/fragment_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FragmentTest"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/fragment_best_practice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FragmentBestPractice"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/receiver_code_network"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ReceiverCodeNetWork"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/receiver_static_bootcomplete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ReceiverStaticBootComplete"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/receiver_send_stand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ReceiverSendStand"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/receiver_send_local"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ReceiverSendLocal"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/receiver_send_offline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ReceiverSendForceOffline"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/persistence_file"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PersistenceFile"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/persistence_sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PersistenceSP_LoginUI"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/share_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ShareWithMessage"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/share_onekey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ShareWithWeChat"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/show_pw_down"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ShowPopUpWindowDown"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/db_bookstore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DB_BookStore"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/runtime_permission"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RuntimePermission"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/contentresolver_showcontacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ContentResolver_ShowContacts"
+            android:textAllCaps="false" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ContentPrivoder"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notification"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/take_picture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TakePicture"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/play_music"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PlayMusic"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/play_movie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PlayMovie"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WebView"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/http_urlconnection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HttpURLConnection/OkHttp3"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Service"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/download_best_practice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DownloadBestPractice"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/lbs_baidu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LBS_Baidu"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/material_design"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MaterialDesign"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/listview_multi_viewholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ListViewMultiViewHolder"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/coolweather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CoolWeather"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
+</ScrollView>
