@@ -3,4 +3,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="slide_1_title">Hello One!</string>
+    <string name="slide_2_title">Hello Two!</string>
+    <string name="slide_3_title">Hello Three!</string>
+    <string name="slide_4_title">Hello Four!</string>
 </resources>
