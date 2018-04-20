@@ -32,6 +32,7 @@ import net.sourceforge.simcpux.constant.ConstantURL;
 import net.sourceforge.simcpux.fragment.ChooseAreaFragment;
 import net.sourceforge.simcpux.log.L;
 import net.sourceforge.simcpux.net.OkHttpMananger;
+import net.sourceforge.simcpux.service.UpdateWeatherService;
 
 public class WeatherActivity extends AppCompatActivity implements ChooseAreaFragment.OnAreaLisenter, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = "WeatherActivity";
@@ -167,6 +168,8 @@ public class WeatherActivity extends AppCompatActivity implements ChooseAreaFrag
             tv_suggestion_comfor.setText("舒适指数：" + heWeather.suggestion.comf.txt);
             tv_suggestion_sport.setText("运动指数：" + heWeather.suggestion.sport.txt);
             tv_suggestion_car.setText("洗车指数：" + heWeather.suggestion.cw.txt);
+
+            startService(new Intent(this, UpdateWeatherService.class));
         } else {
             Toast.makeText(WeatherActivity.this, "获取天气信息失败", Toast.LENGTH_SHORT).show();
         }
