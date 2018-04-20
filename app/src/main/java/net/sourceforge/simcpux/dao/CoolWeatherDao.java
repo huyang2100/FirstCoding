@@ -34,7 +34,7 @@ public class CoolWeatherDao {
             ContentValues values = new ContentValues();
             values.put(CoolWeatherDBHelper.KEY_NAME, areaItem.getName());
             values.put(CoolWeatherDBHelper.KEY_CODE, areaItem.getId());
-            values.put(CoolWeatherDBHelper.KEY_LEVEL,areaItem.getCurLevel());
+            values.put(CoolWeatherDBHelper.KEY_LEVEL, areaItem.getCurLevel());
             db.insert(CoolWeatherDBHelper.TABLE_PROVINCE, null, values);
         }
         db.close();
@@ -53,7 +53,7 @@ public class CoolWeatherDao {
             values.put(CoolWeatherDBHelper.KEY_NAME, areaItem.getName());
             values.put(CoolWeatherDBHelper.KEY_CODE, areaItem.getId());
             values.put(CoolWeatherDBHelper.KEY_UP_CODE, areaItem.getUpCode());
-            values.put(CoolWeatherDBHelper.KEY_LEVEL,areaItem.getCurLevel());
+            values.put(CoolWeatherDBHelper.KEY_LEVEL, areaItem.getCurLevel());
             db.insert(CoolWeatherDBHelper.TABLE_CITY, null, values);
         }
         db.close();
@@ -71,7 +71,8 @@ public class CoolWeatherDao {
             values.put(CoolWeatherDBHelper.KEY_NAME, areaItem.getName());
             values.put(CoolWeatherDBHelper.KEY_CODE, areaItem.getId());
             values.put(CoolWeatherDBHelper.KEY_UP_CODE, areaItem.getUpCode());
-            values.put(CoolWeatherDBHelper.KEY_LEVEL,areaItem.getCurLevel());
+            values.put(CoolWeatherDBHelper.KEY_LEVEL, areaItem.getCurLevel());
+            values.put(CoolWeatherDBHelper.KEY_WEATHER_ID, areaItem.getWeather_id());
             db.insert(CoolWeatherDBHelper.TABLE_COUNTRY, null, values);
         }
         db.close();
@@ -154,6 +155,8 @@ public class CoolWeatherDao {
             String name = cursor.getString(cursor.getColumnIndex(CoolWeatherDBHelper.KEY_NAME));
             int code = cursor.getInt(cursor.getColumnIndex(CoolWeatherDBHelper.KEY_CODE));
             int level = cursor.getInt(cursor.getColumnIndex(CoolWeatherDBHelper.KEY_LEVEL));
+            String weatherid = cursor.getString(cursor.getColumnIndex(CoolWeatherDBHelper.KEY_WEATHER_ID));
+            areaItem.setWeather_id(weatherid);
             areaItem.setCurLevel(level);
             areaItem.setName(name);
             areaItem.setId(code);

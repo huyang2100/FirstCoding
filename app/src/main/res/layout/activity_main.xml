@@ -247,6 +247,13 @@
             android:layout_height="wrap_content"
             android:text="CoolWeather"
             android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/smartrefresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SmartRefreshLayout"
+            android:textAllCaps="false" />
     </LinearLayout>
 
 </ScrollView>

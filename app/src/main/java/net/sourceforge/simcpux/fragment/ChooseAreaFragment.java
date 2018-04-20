@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -41,7 +42,8 @@ public class ChooseAreaFragment extends Fragment {
     private Gson gson = new Gson();
     private CoolWeatherDao coolWeatherDao;
     private ProgressDialog progressDialog;
-    private OnItemClickLisenter onItemClickLisenter;
+    private OnAreaLisenter onAreaLisenter;
+    private TextView tv_title;
 
     public static Fragment newInstance(AreaItem item) {
         ChooseAreaFragment areaFragment = new ChooseAreaFragment();
@@ -53,18 +55,20 @@ public class ChooseAreaFragment extends Fragment {
         return areaFragment;
     }
 
-    public interface OnItemClickLisenter {
+    public interface OnAreaLisenter {
         void onItemClick(AreaItem areaItem);
+
+        void onBackClick();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-            onItemClickLisenter = (OnItemClickLisenter) getActivity();
+            onAreaLisenter = (OnAreaLisenter) getActivity();
             coolWeatherDao = new CoolWeatherDao(getActivity());
         } catch (Exception e) {
-            throw new ClassCastException("Activity Not implements OnItemClickLisenter!!!");
+            throw new ClassCastException("Activity Not implements OnAreaLisenter!!!");
         }
     }
 
@@ -81,17 +85,32 @@ public class ChooseAreaFragment extends Fragment {
         areaAdapter.setOnItemClickLisenter(new ChooseAreaAdapter.OnItemClickLisenter() {
             @Override
             public void itemClick(AreaItem areaItem) {
-                if (onItemClickLisenter != null) {
-                    onItemClickLisenter.onItemClick(areaItem);
+                if (onAreaLisenter != null) {
+                    onAreaLisenter.onItemClick(areaItem);
+                }
+            }
+        });
+
+        tv_title = view.findViewById(R.id.tv_title);
+        View iv_back = view.findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onAreaLisenter != null) {
+                    onAreaLisenter.onBackClick();
                 }
             }
         });
 
         Bundle args = getArguments();
         if (args == null) {
+            iv_back.setVisibility(View.INVISIBLE);
+            tv_title.setText("中国");
             showProvinces();
         } else {
             AreaItem areaItem = (AreaItem) args.getSerializable(KEY_ITEMBEAN);
+            iv_back.setVisibility(View.VISIBLE);
+            tv_title.setText(areaItem.getName());
             switch (areaItem.getCurLevel()) {
                 case AreaItem.LEVEL_PROVINCE:
                     showCitys(areaItem.getId());

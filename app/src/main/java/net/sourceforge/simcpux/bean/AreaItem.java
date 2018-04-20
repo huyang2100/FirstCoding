@@ -16,10 +16,18 @@ public class AreaItem implements Serializable {
     public static final int LEVEL_COUNTRY = 2;
     private int id;
     private String name;
+    private String weather_id;
     //上级code
     private int upCode;
     private int curLevel;
 
+    public String getWeather_id() {
+        return weather_id;
+    }
+
+    public void setWeather_id(String weather_id) {
+        this.weather_id = weather_id;
+    }
     public int getUpCode() {
         return upCode;
     }

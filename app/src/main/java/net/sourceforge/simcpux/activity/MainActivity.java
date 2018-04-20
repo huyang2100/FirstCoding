@@ -323,6 +323,13 @@ public class MainActivity extends AppCompatActivity {
                 CoolWeatherActivity.actionStart(MainActivity.this);
             }
         });
+
+        findViewById(R.id.smartrefresh).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SmartRefreshLayoutActivity.actionStart(MainActivity.this);
+            }
+        });
     }
 
     @Override

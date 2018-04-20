@@ -16,6 +16,7 @@ public class CoolWeatherDBHelper extends SQLiteOpenHelper {
     public static final String KEY_CODE = "code";
     public static final String KEY_UP_CODE = "upcode";
     public static final String KEY_LEVEL = "level";
+    public static final String KEY_WEATHER_ID = "weather_id";
 
     /**
      * 表：省
@@ -47,7 +48,8 @@ public class CoolWeatherDBHelper extends SQLiteOpenHelper {
             KEY_NAME + " text," +
             KEY_CODE + " integer," +
             KEY_UP_CODE + " integer," +
-            KEY_LEVEL + " integer)";
+            KEY_LEVEL + " integer," +
+            KEY_WEATHER_ID + " text)";
 
     public CoolWeatherDBHelper(Context context) {
         super(context, "coolweather.db", null, 1);
