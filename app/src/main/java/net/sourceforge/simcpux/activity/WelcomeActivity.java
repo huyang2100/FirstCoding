@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,22 +20,23 @@ import net.sourceforge.simcpux.adapter.WelcomeAdapter;
 import net.sourceforge.simcpux.log.L;
 import net.sourceforge.simcpux.manager.PrefManager;
 
+import ezy.ui.view.RoundButton;
+
 public class WelcomeActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private PrefManager prefManager;
     private LinearLayout ll_dots;
     private static final String TAG = "WelcomeActivity";
-    private int lastPostion;
+    private View btn_enter_app;
+    private TextView tv_desc;
+    private int[] descs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         prefManager = new PrefManager(this);
-        if (!prefManager.isFirstTimeLaunch()) {
-            enterHomeActivity();
-        }
 
         setContentView(R.layout.activity_welcome);
         initView();
@@ -41,7 +44,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void enterHomeActivity() {
-        startActivity(new Intent(this, SplashActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
@@ -67,6 +70,8 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
 
+        descs = new int[]{R.string.slide_1_title, R.string.slide_2_title, R.string.slide_3_title, R.string.slide_4_title};
+        tv_desc.setText(descs[0]);
     }
 
     private void initView() {
@@ -77,20 +82,46 @@ public class WelcomeActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewpager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             private ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+            private int lastPostion;
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                TextView tv_position_last = (TextView) ll_dots.getChildAt(lastPostion);
-                tv_position_last.setTextColor((int) argbEvaluator.evaluate(positionOffset, Color.WHITE, Color.BLACK));
 
-                TextView tv_position = (TextView) ll_dots.getChildAt(position);
-                tv_position.setTextColor((int) argbEvaluator.evaluate(positionOffset, Color.BLACK, Color.WHITE));
+                if (positionOffset != 0.0f) {
+                    if (lastPostion == position) {
+                        tv_desc.setTextColor((int) argbEvaluator.evaluate(1 - positionOffset, Color.TRANSPARENT, Color.BLACK));
+                    } else {
+                        tv_desc.setTextColor((int) argbEvaluator.evaluate(positionOffset, Color.TRANSPARENT, Color.BLACK));
+                    }
 
-                L.i(TAG, "position: " + position + "     offSet: " + positionOffset + "      lastPostion: " + lastPostion);
+                    //first visible position
+                    TextView tv_position = (TextView) ll_dots.getChildAt(position);
+                    tv_position.setTextColor((int) argbEvaluator.evaluate(1 - positionOffset, Color.WHITE, Color.BLACK));
+
+                    //second visible position
+                    int secondPostion = Math.min(position + 1, ll_dots.getChildCount());
+                    TextView tv_position_last = (TextView) ll_dots.getChildAt(secondPostion);
+                    int evaluate = (int) argbEvaluator.evaluate(positionOffset, Color.WHITE, Color.BLACK);
+                    tv_position_last.setTextColor(evaluate);
+
+                    if (lastPostion == ll_dots.getChildCount() - 1) {
+                        btn_enter_app.setAlpha(positionOffset);
+                    }
+                    L.i(TAG, "position: " + position + "     offSet: " + positionOffset + "      lastPostion: " + lastPostion + "   positionOffsetPixels:" + positionOffsetPixels);
+                }
             }
 
             @Override
             public void onPageSelected(int position) {
+                if (position != ll_dots.getChildCount() - 1) {
+                    btn_enter_app.setVisibility(View.GONE);
+                } else {
+                    btn_enter_app.setVisibility(View.VISIBLE);
+                }
+                tv_desc.setText(descs[position]);
+                tv_desc.setAlpha(0f);
+                tv_desc.animate().alpha(1f).setInterpolator(new AccelerateInterpolator()).setDuration(1000).start();
+
                 lastPostion = position;
             }
 
@@ -101,11 +132,13 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
         ll_dots = findViewById(R.id.ll_dots);
+        tv_desc = findViewById(R.id.tv_desc);
 
-        findViewById(R.id.btn_enter_app).setOnClickListener(new View.OnClickListener() {
+        btn_enter_app = findViewById(R.id.btn_enter_app);
+        btn_enter_app.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prefManager.setFirstTimeLaunch(true);
+                prefManager.setFirstTimeLaunch(false);
                 enterHomeActivity();
             }
         });

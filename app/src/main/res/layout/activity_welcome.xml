@@ -16,27 +16,37 @@
 
     <LinearLayout
         android:id="@+id/ll_dots"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/slide_title"
+        android:textStyle="bold" />
 
     <ezy.ui.view.RoundButton
         android:id="@+id/btn_enter_app"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_dots"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:clickable="true"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:text="进入应用"
-        android:layout_above="@+id/ll_dots"
         android:textColor="@android:color/white"
+        android:visibility="gone"
         app:btnCornerRadius="20dp"
         app:btnSolidColor="#607D8B" />
 </RelativeLayout>

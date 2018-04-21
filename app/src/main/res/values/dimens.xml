@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="slide_title">30sp</dimen>
+    <dimen name="slide_title">50sp</dimen>
 </resources>
