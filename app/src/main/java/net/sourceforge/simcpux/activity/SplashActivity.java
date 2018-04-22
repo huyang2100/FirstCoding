@@ -32,6 +32,10 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+    }
 
     @Override
     protected void onDestroy() {

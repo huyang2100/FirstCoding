@@ -42,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
     private LocalBroadcastManager broadcastManager;
     private NetWorkReceiver netWorkReceiver;
     private IWXAPI wxapi;
+    private long lastPressTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
@@ -58,7 +58,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        moveTaskToBack(true);
+        if (System.currentTimeMillis() - lastPressTime >= 2000) {
+            Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+            lastPressTime = System.currentTimeMillis();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void regToWX() {
