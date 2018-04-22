@@ -45,9 +45,7 @@
         <activity android:name=".activity.RecyclerActivity" />
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.Patch9Activity"
             android:windowSoftInputMode="adjustResize" />
@@ -169,9 +167,10 @@
         <activity
             android:name=".activity.WelcomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".activity.SlidingTabLayoutActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

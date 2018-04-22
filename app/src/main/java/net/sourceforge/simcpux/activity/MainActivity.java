@@ -343,6 +343,13 @@ public class MainActivity extends AppCompatActivity {
                 SmartRefreshLayoutActivity.actionStart(MainActivity.this);
             }
         });
+
+        findViewById(R.id.slidingtablayout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SlidingTabLayoutActivity.actionStart(MainActivity.this);
+            }
+        });
     }
 
     @Override

@@ -48,6 +48,10 @@ public class NewsContentFragment extends Fragment {
         return fragment;
     }
 
+    public String getTitle(){
+        return getArguments().getString(EXTRA_TITLE);
+    }
+
     public void refresh(String title, String content) {
         tv_title.setText(title);
         tv_content.setText(content);
