@@ -45,7 +45,7 @@
         <activity android:name=".activity.RecyclerActivity" />
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.Patch9Activity"
             android:windowSoftInputMode="adjustResize" />
@@ -109,7 +109,6 @@
             android:name=".activity.PlayMovieActivity"
             android:configChanges="orientation|screenSize" />
         <activity android:name=".activity.WebViewActivity" />
-        <activity android:name=".activity.HttpURLConnectionActivity" />
 
         <service
             android:name=".service.TestDownloadService"
@@ -150,6 +149,10 @@
             android:name=".activity.SmartRefreshLayoutActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activity.HttpURLConnectionActivity"
+            android:screenOrientation="portrait" />
+
         <service
             android:name=".service.UpdateWeatherService"
             android:enabled="true"
@@ -167,10 +170,15 @@
         <activity
             android:name=".activity.WelcomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.SlidingTabLayoutActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.JZVideoPlayerActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.MuKeHomeActivity"></activity>
     </application>
 
 </manifest>

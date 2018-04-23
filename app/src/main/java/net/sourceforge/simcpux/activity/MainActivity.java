@@ -288,13 +288,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.http_urlconnection).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HttpURLConnectionActivity.actionStart(MainActivity.this);
-            }
-        });
-
         findViewById(R.id.service).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -348,6 +341,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SlidingTabLayoutActivity.actionStart(MainActivity.this);
+            }
+        });
+
+        findViewById(R.id.jzvideoplayer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JZVideoPlayerActivity.actionStart(MainActivity.this);
+            }
+        });
+
+        findViewById(R.id.mukehome).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MuKeHomeActivity.actionStart(MainActivity.this);
+            }
+        });
+
+        findViewById(R.id.url_okhttp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HttpURLConnectionActivity.actionStart(MainActivity.this);
             }
         });
     }

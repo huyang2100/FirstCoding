@@ -17,6 +17,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.jaeger.library.StatusBarUtil;
+
 import net.sourceforge.simcpux.R;
 import net.sourceforge.simcpux.bean.Fruit;
 
@@ -61,6 +64,7 @@ public class FruitDetialActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        StatusBarUtil.setLightMode(this);
         tv_content = findViewById(R.id.tv_content);
         Toolbar toolbar = findViewById(R.id.toolbar);
         iv = findViewById(R.id.iv);

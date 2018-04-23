@@ -16,7 +16,6 @@
 
     <style name="SplashStyle" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:background">@drawable/splash</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="popwin_anim_style">
