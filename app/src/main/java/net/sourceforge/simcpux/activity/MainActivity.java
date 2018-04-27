@@ -5,6 +5,8 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -362,6 +364,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 HttpURLConnectionActivity.actionStart(MainActivity.this);
+            }
+        });
+
+        findViewById(R.id.copytext).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                clipboardManager.setPrimaryClip(ClipData.newPlainText("","\n" +
+                        "Many of these poems bear witness to his years spent in India and China \n" +
+                        "\n" +
+                        "这些诗中有很多见证了他在印度和中国度过的岁月。"));
+                Toast.makeText(MainActivity.this, "复制成功！", Toast.LENGTH_SHORT).show();
             }
         });
     }
