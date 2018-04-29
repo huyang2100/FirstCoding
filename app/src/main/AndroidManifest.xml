@@ -178,7 +178,8 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.MuKeHomeActivity" />
-        <activity android:name=".activity.CriminalActivity"></activity>
+        <activity android:name=".activity.CriminalActivity" />
+        <activity android:name=".activity.CriminalListActivity"></activity>
     </application>
 
 </manifest>

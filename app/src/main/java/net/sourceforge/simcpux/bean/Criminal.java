@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class Criminal {
     //id
-    private String id;
+    private UUID id;
     //日期
     private Date date;
     //标题
@@ -18,15 +18,15 @@ public class Criminal {
     private boolean solved;
 
     public Criminal(){
-        id = UUID.randomUUID().toString();
+        id = UUID.randomUUID();
         date = new Date();
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
