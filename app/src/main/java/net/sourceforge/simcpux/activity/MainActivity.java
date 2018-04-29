@@ -378,6 +378,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "复制成功！", Toast.LENGTH_SHORT).show();
             }
         });
+
+        findViewById(R.id.crimial).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(CriminalActivity.newIntent(MainActivity.this));
+            }
+        });
     }
 
     @Override

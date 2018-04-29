@@ -148,7 +148,6 @@
         <activity
             android:name=".activity.SmartRefreshLayoutActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.HttpURLConnectionActivity"
             android:screenOrientation="portrait" />
@@ -178,7 +177,8 @@
             android:name=".activity.JZVideoPlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.MuKeHomeActivity"></activity>
+        <activity android:name=".activity.MuKeHomeActivity" />
+        <activity android:name=".activity.CriminalActivity"></activity>
     </application>
 
 </manifest>
