@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.lbs_baidu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LBSBaiduActivity.actionStart(MainActivity.this);
+//                LBSBaiduActivity.actionStart(MainActivity.this);
             }
         });
 
