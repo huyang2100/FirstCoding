@@ -1,6 +1,8 @@
 package net.sourceforge.simcpux.fragment;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,7 +17,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import net.sourceforge.simcpux.R;
+import net.sourceforge.simcpux.activity.CriminalLab;
 import net.sourceforge.simcpux.bean.Criminal;
+
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,20 +28,31 @@ import net.sourceforge.simcpux.bean.Criminal;
 public class CriminalFragment extends Fragment {
 
 
+    private static final String KEY_CRIME_ID = "crime_id";
     private Criminal criminal;
+
+    public static CriminalFragment newInstance(UUID crimeId){
+        CriminalFragment fragment = new CriminalFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(KEY_CRIME_ID,crimeId);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        criminal = new Criminal();
+        UUID crimeId = (UUID) getArguments().getSerializable(KEY_CRIME_ID);
+        criminal = CriminalLab.get().getCriminal(crimeId);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_criminal, container, false);
         EditText et_title = v.findViewById(R.id.et_title);
+        et_title.setText(criminal.getTitle());
         et_title.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -63,6 +79,7 @@ public class CriminalFragment extends Fragment {
             }
         });
         CheckBox cb_sloved = v.findViewById(R.id.cb_sloved);
+        cb_sloved.setChecked(criminal.isSolved());
         cb_sloved.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

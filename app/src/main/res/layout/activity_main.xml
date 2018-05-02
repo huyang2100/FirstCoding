@@ -285,13 +285,6 @@
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/constraintlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ConstraintLayout"
-            android:textAllCaps="false" />
-
-        <Button
             android:id="@+id/mukehome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

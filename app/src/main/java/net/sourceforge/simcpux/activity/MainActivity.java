@@ -385,13 +385,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(CriminalListActivity.newIntent(MainActivity.this));
             }
         });
-
-        findViewById(R.id.constraintlayout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(ConstraintLayoutActivity.newIntent(MainActivity.this));
-            }
-        });
     }
 
     @Override
