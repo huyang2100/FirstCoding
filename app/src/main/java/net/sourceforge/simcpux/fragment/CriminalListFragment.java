@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.sourceforge.simcpux.R;
@@ -31,6 +33,7 @@ public class CriminalListFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_criminal_list, container, false);
         recyclerView = v.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(new CriminalAdapter(CriminalLab.get().getCriminalList()));
         return v;
     }
@@ -63,16 +66,19 @@ public class CriminalListFragment extends Fragment {
 
             private final TextView tv_title;
             private final TextView tv_date;
+            private final ImageView iv_solved;
 
             public CriminalHolder(LayoutInflater inflater, ViewGroup parent) {
-                super(inflater.inflate(R.layout.list_item_criminal, parent,false));
+                super(inflater.inflate(R.layout.list_item_criminal, parent, false));
                 tv_title = itemView.findViewById(R.id.tv_title);
                 tv_date = itemView.findViewById(R.id.tv_date);
+                iv_solved = itemView.findViewById(R.id.iv_solved);
             }
 
             public void bind(Criminal criminal) {
                 tv_title.setText(criminal.getTitle());
                 tv_date.setText(criminal.getDate().toString());
+                iv_solved.setVisibility(criminal.isSolved() ? View.VISIBLE : View.INVISIBLE);
             }
         }
     }
