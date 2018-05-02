@@ -31,10 +31,11 @@
         android:theme="@style/AppTheme">
 
         <!-- 声明service组件 -->
-        <!--<service-->
-            <!--android:name="com.baidu.location.f"-->
-            <!--android:enabled="true"-->
-            <!--android:process=":remote" />-->
+        <!-- <service -->
+        <!-- android:name="com.baidu.location.f" -->
+        <!-- android:enabled="true" -->
+        <!-- android:process=":remote" /> -->
+
 
         <!-- AK鉴权 -->
         <!-- meta-data需要写在application中 -->
@@ -128,7 +129,7 @@
         <activity
             android:name=".activity.DownloadBestActivity"
             android:launchMode="singleTask" />
-        <!--<activity android:name=".activity.LBSBaiduActivity" />-->
+        <!-- <activity android:name=".activity.LBSBaiduActivity" /> -->
         <activity
             android:name=".activity.MaterialDesignActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -179,8 +180,9 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.MuKeHomeActivity" />
         <activity android:name=".activity.CriminalActivity" />
-        <activity android:name=".activity.CriminalListActivity"></activity>
-        <activity android:name=".activity.ConstraintLayoutActivity"></activity>
+        <activity android:name=".activity.CriminalListActivity" />
+        <activity android:name=".activity.ConstraintLayoutActivity" />
+        <activity android:name=".activity.CrimePagerActivity"></activity>
     </application>
 
 </manifest>

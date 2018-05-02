@@ -1,8 +1,6 @@
 package net.sourceforge.simcpux.fragment;
 
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,22 +15,22 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import net.sourceforge.simcpux.R;
-import net.sourceforge.simcpux.activity.CriminalLab;
-import net.sourceforge.simcpux.bean.Criminal;
+import net.sourceforge.simcpux.activity.CrimeLab;
+import net.sourceforge.simcpux.bean.Crime;
 
 import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CriminalFragment extends Fragment {
+public class CrimeFragment extends Fragment {
 
 
     private static final String KEY_CRIME_ID = "crime_id";
-    private Criminal criminal;
+    private Crime criminal;
 
-    public static CriminalFragment newInstance(UUID crimeId){
-        CriminalFragment fragment = new CriminalFragment();
+    public static CrimeFragment newInstance(UUID crimeId){
+        CrimeFragment fragment = new CrimeFragment();
         Bundle args = new Bundle();
         args.putSerializable(KEY_CRIME_ID,crimeId);
         fragment.setArguments(args);
@@ -43,7 +41,7 @@ public class CriminalFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID crimeId = (UUID) getArguments().getSerializable(KEY_CRIME_ID);
-        criminal = CriminalLab.get().getCriminal(crimeId);
+        criminal = CrimeLab.get().getCriminal(crimeId);
     }
 
     @Override

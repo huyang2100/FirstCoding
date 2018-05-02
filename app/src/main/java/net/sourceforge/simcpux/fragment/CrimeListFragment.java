@@ -12,12 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import net.sourceforge.simcpux.R;
-import net.sourceforge.simcpux.activity.CriminalActivity;
-import net.sourceforge.simcpux.activity.CriminalLab;
-import net.sourceforge.simcpux.bean.Criminal;
+import net.sourceforge.simcpux.activity.CrimePagerActivity;
+import net.sourceforge.simcpux.activity.CrimeLab;
+import net.sourceforge.simcpux.bean.Crime;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.List;
  * Created by yanghu on 2018/4/29.
  */
 
-public class CriminalListFragment extends Fragment {
+public class CrimeListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private CriminalAdapter criminalAdapter;
@@ -45,10 +44,10 @@ public class CriminalListFragment extends Fragment {
 
     private void updateUI() {
         if (criminalAdapter == null) {
-            criminalAdapter = new CriminalAdapter(CriminalLab.get().getCriminalList());
+            criminalAdapter = new CriminalAdapter(CrimeLab.get().getCrimeList());
             recyclerView.setAdapter(criminalAdapter);
         } else {
-            criminalAdapter.notifyItemChanged(mSelPostion);
+            criminalAdapter.notifyDataSetChanged();
         }
     }
 
@@ -60,9 +59,9 @@ public class CriminalListFragment extends Fragment {
 
     private class CriminalAdapter extends RecyclerView.Adapter<CriminalAdapter.CriminalHolder> {
 
-        private final List<Criminal> criminalList;
+        private final List<Crime> criminalList;
 
-        public CriminalAdapter(List<Criminal> criminalList) {
+        public CriminalAdapter(List<Crime> criminalList) {
             this.criminalList = criminalList;
         }
 
@@ -74,13 +73,14 @@ public class CriminalListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull CriminalAdapter.CriminalHolder holder, final int position) {
-            final Criminal criminal = criminalList.get(position);
+            final Crime criminal = criminalList.get(position);
             holder.bind(criminal);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mSelPostion = position;
-                    startActivity(CriminalActivity.newIntent(getActivity(), criminal.getId()));
+//                    startActivity(CriminalActivity.newIntent(getActivity(), criminal.getId()));
+                    startActivity(CrimePagerActivity.newIntent(getActivity(), criminal.getId()));
                 }
             });
         }
@@ -105,7 +105,7 @@ public class CriminalListFragment extends Fragment {
                 iv_solved = itemView.findViewById(R.id.iv_solved);
             }
 
-            public void bind(final Criminal criminal) {
+            public void bind(final Crime criminal) {
                 tv_title.setText(criminal.getTitle());
                 iv_solved.setVisibility(criminal.isSolved() ? View.VISIBLE : View.INVISIBLE);
                 tv_date.setText(sdf.format(criminal.getDate()));

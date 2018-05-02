@@ -7,7 +7,7 @@ import java.util.UUID;
  * Created by yanghu on 2018/4/29.
  */
 
-public class Criminal {
+public class Crime {
     //id
     private UUID id;
     //日期
@@ -17,7 +17,7 @@ public class Criminal {
     //是否解决
     private boolean solved;
 
-    public Criminal(){
+    public Crime(){
         id = UUID.randomUUID();
         date = new Date();
     }

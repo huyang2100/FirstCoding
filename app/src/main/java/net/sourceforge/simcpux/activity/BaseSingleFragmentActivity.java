@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import net.sourceforge.simcpux.R;
-import net.sourceforge.simcpux.fragment.CriminalFragment;
 
 /**
  * Created by yanghu on 2018/4/29.
