@@ -8,10 +8,14 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.sourceforge.simcpux.R;
 import net.sourceforge.simcpux.activity.CrimePagerActivity;
@@ -29,7 +33,31 @@ public class CrimeListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private CriminalAdapter criminalAdapter;
-    private int mSelPostion;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_list_crime, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_crime_add:
+                Crime crime = new Crime();
+                CrimeLab.get().add(crime);
+                startActivity(CrimePagerActivity.newIntent(getActivity(), crime.getId()));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Nullable
     @Override
@@ -78,7 +106,6 @@ public class CrimeListFragment extends Fragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mSelPostion = position;
 //                    startActivity(CriminalActivity.newIntent(getActivity(), criminal.getId()));
                     startActivity(CrimePagerActivity.newIntent(getActivity(), criminal.getId()));
                 }

@@ -11,26 +11,26 @@ import java.util.UUID;
  */
 
 public class CrimeLab {
-    public static CrimeLab crimialLab;
+    public static CrimeLab crimeLab;
 
-    private List<Crime> criminalList;
+    private List<Crime> crimeList;
 
     private CrimeLab() {
-        criminalList = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            Crime criminal = new Crime();
-            criminal.setSolved(i % 2 == 0);
-            criminal.setTitle("Crime #" + i);
-            criminalList.add(criminal);
-        }
+        crimeList = new ArrayList<>();
+//        for (int i = 0; i < 100; i++) {
+//            Crime criminal = new Crime();
+//            criminal.setSolved(i % 2 == 0);
+//            criminal.setTitle("Crime #" + i);
+//            crimeList.add(criminal);
+//        }
     }
 
     public List<Crime> getCrimeList() {
-        return criminalList;
+        return crimeList;
     }
 
     public Crime getCriminal(UUID uuid){
-        for(Crime criminal : criminalList){
+        for(Crime criminal : crimeList){
             if(criminal.getId().equals(uuid)){
                 return criminal;
             }
@@ -40,9 +40,13 @@ public class CrimeLab {
     }
 
     public static CrimeLab get() {
-        if (crimialLab == null) {
-            crimialLab = new CrimeLab();
+        if (crimeLab == null) {
+            crimeLab = new CrimeLab();
         }
-        return crimialLab;
+        return crimeLab;
+    }
+
+    public void add(Crime crime) {
+        crimeList.add(crime);
     }
 }
