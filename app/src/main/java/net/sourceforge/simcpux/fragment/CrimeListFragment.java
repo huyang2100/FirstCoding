@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,19 +33,42 @@ import java.util.List;
 
 public class CrimeListFragment extends Fragment {
 
+    private static final String KEY_IS_SHOW_SUBTITLE = "is_show_subtitle";
     private RecyclerView recyclerView;
     private CriminalAdapter criminalAdapter;
+    private boolean isShowSubTitle = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            isShowSubTitle = savedInstanceState.getBoolean(KEY_IS_SHOW_SUBTITLE);
+        }
         setHasOptionsMenu(true);
     }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(KEY_IS_SHOW_SUBTITLE, isShowSubTitle);
+    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_list_crime, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.menu_crime_title_show);
+        AppCompatActivity compatActivity = (AppCompatActivity) getActivity();
+        ActionBar actionBar = compatActivity.getSupportActionBar();
+        if (isShowSubTitle) {
+            menuItem.setTitle(R.string.menu_crime_size_hide);
+            actionBar.setSubtitle(getString(R.string.format_crime_size, CrimeLab.get().getCrimeList().size()));
+        } else {
+            menuItem.setTitle(R.string.menu_crime_size_show);
+            actionBar.setSubtitle(null);
+        }
     }
 
     @Override
@@ -54,6 +79,9 @@ public class CrimeListFragment extends Fragment {
                 CrimeLab.get().add(crime);
                 startActivity(CrimePagerActivity.newIntent(getActivity(), crime.getId()));
                 return true;
+            case R.id.menu_crime_title_show:
+                isShowSubTitle = !isShowSubTitle;
+                getActivity().invalidateOptionsMenu();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -77,6 +105,8 @@ public class CrimeListFragment extends Fragment {
         } else {
             criminalAdapter.notifyDataSetChanged();
         }
+
+        getActivity().invalidateOptionsMenu();
     }
 
     @Override

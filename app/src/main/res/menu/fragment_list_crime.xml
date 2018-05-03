@@ -8,4 +8,11 @@
         app:showAsAction="ifRoom|withText">
 
     </item>
+
+    <item
+        android:id="@+id/menu_crime_title_show"
+        android:title="@string/menu_crime_size_show"
+        app:showAsAction="never">
+
+    </item>
 </menu>
