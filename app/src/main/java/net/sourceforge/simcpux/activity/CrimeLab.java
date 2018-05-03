@@ -1,6 +1,10 @@
 package net.sourceforge.simcpux.activity;
 
+import android.database.sqlite.SQLiteDatabase;
+
+import net.sourceforge.simcpux.app.FCApplication;
 import net.sourceforge.simcpux.bean.Crime;
+import net.sourceforge.simcpux.dbhelper.CrimeDBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +18,11 @@ public class CrimeLab {
     public static CrimeLab crimeLab;
 
     private List<Crime> crimeList;
+    private final SQLiteDatabase crimeDB;
 
     private CrimeLab() {
         crimeList = new ArrayList<>();
-//        for (int i = 0; i < 100; i++) {
-//            Crime criminal = new Crime();
-//            criminal.setSolved(i % 2 == 0);
-//            criminal.setTitle("Crime #" + i);
-//            crimeList.add(criminal);
-//        }
+        crimeDB = new CrimeDBHelper(FCApplication.getContext()).getWritableDatabase();
     }
 
     public List<Crime> getCrimeList() {
