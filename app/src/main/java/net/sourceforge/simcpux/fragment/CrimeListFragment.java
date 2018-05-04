@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import net.sourceforge.simcpux.R;
 import net.sourceforge.simcpux.activity.CrimePagerActivity;
@@ -103,6 +102,7 @@ public class CrimeListFragment extends Fragment {
             criminalAdapter = new CriminalAdapter(CrimeLab.get().getCrimeList());
             recyclerView.setAdapter(criminalAdapter);
         } else {
+            criminalAdapter.setData(CrimeLab.get().getCrimeList());
             criminalAdapter.notifyDataSetChanged();
         }
 
@@ -117,10 +117,10 @@ public class CrimeListFragment extends Fragment {
 
     private class CriminalAdapter extends RecyclerView.Adapter<CriminalAdapter.CriminalHolder> {
 
-        private final List<Crime> criminalList;
+        private List<Crime> crimeList;
 
-        public CriminalAdapter(List<Crime> criminalList) {
-            this.criminalList = criminalList;
+        public CriminalAdapter(List<Crime> crimeList) {
+            this.crimeList = crimeList;
         }
 
         @NonNull
@@ -131,7 +131,7 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull CriminalAdapter.CriminalHolder holder, final int position) {
-            final Crime criminal = criminalList.get(position);
+            final Crime criminal = crimeList.get(position);
             holder.bind(criminal);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -144,7 +144,11 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return criminalList.size();
+            return crimeList.size();
+        }
+
+        public void setData(List<Crime> crimeList) {
+            this.crimeList = crimeList;
         }
 
         public class CriminalHolder extends RecyclerView.ViewHolder {

@@ -45,7 +45,7 @@ public class CrimeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID crimeId = (UUID) getArguments().getSerializable(KEY_CRIME_ID);
-        crime = CrimeLab.get().getCriminal(crimeId);
+        crime = CrimeLab.get().getCrime(crimeId);
     }
 
     @Override
@@ -54,6 +54,7 @@ public class CrimeFragment extends Fragment {
         if(resultCode == Activity.RESULT_OK && data!=null){
             Date date = (Date) data.getSerializableExtra(CrimeDateFragment.KEY_DATE);
             crime.setDate(date);
+            updateCrime();
             updateDate();
         }
     }
@@ -74,6 +75,7 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 crime.setTitle(s.toString());
+                updateCrime();
             }
 
             @Override
@@ -97,9 +99,14 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 crime.setSolved(isChecked);
+                updateCrime();
             }
         });
         return v;
+    }
+
+    private void updateCrime() {
+        CrimeLab.get().update(crime);
     }
 
     private void updateDate() {

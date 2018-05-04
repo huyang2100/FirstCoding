@@ -22,11 +22,10 @@ public class CrimeDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + CrimeDBSchema.CrimeTable.NAME + "(" +
                 "_id integer primary key autoincrement," +
-                CrimeDBSchema.Cols.UUID + "," +
-                CrimeDBSchema.Cols.TITLE + "," +
-                CrimeDBSchema.Cols.DATE + "," +
-                CrimeDBSchema.Cols.SOLVED
-                + ")");
+                CrimeDBSchema.Cols.UUID + " text," +
+                CrimeDBSchema.Cols.TITLE + " text," +
+                CrimeDBSchema.Cols.DATE + " text," +
+                CrimeDBSchema.Cols.SOLVED + " integer)");
     }
 
     @Override

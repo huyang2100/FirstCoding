@@ -21,6 +21,7 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
         if (prefManager.isFirstTimeLaunch()) {
             startActivity(new Intent(this, WelcomeActivity.class));
             finish();
+            return;
         }
 
         handler.postDelayed(this, 500);
