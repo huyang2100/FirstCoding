@@ -371,7 +371,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                clipboardManager.setPrimaryClip(ClipData.newPlainText("","\n" +
+                clipboardManager.setPrimaryClip(ClipData.newPlainText("", "\n" +
                         "Many of these poems bear witness to his years spent in India and China \n" +
                         "\n" +
                         "这些诗中有很多见证了他在印度和中国度过的岁月。"));
@@ -452,12 +452,16 @@ public class MainActivity extends AppCompatActivity {
      * @param smstext  短信分享内容
      * @return
      */
-    public static Boolean sendSms(Context mContext, String smstext) {
+    public void sendSms(Context mContext, String smstext) {
         Uri smsToUri = Uri.parse("smsto:");
         Intent mIntent = new Intent(Intent.ACTION_SENDTO, smsToUri);
         mIntent.putExtra("sms_body", smstext);
-        mContext.startActivity(mIntent);
-        return null;
+
+        if (getPackageManager().resolveActivity(mIntent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+            mContext.startActivity(mIntent);
+        } else {
+            Toast.makeText(mContext, "请先安装短信应用！", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
