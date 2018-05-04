@@ -457,7 +457,7 @@ public class MainActivity extends AppCompatActivity {
         Intent mIntent = new Intent(Intent.ACTION_SENDTO, smsToUri);
         mIntent.putExtra("sms_body", smstext);
 
-        if (getPackageManager().resolveActivity(mIntent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+        if (mIntent.resolveActivity(getPackageManager()) != null) {
             mContext.startActivity(mIntent);
         } else {
             Toast.makeText(mContext, "请先安装短信应用！", Toast.LENGTH_SHORT).show();
