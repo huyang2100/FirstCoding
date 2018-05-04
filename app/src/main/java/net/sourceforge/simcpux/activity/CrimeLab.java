@@ -40,6 +40,8 @@ public class CrimeLab {
                     crime.setId(UUID.fromString(uuid));
                     String title = cursor.getString(cursor.getColumnIndex(CrimeDBSchema.Cols.TITLE));
                     crime.setTitle(title);
+                    String suspect = cursor.getString(cursor.getColumnIndex(CrimeDBSchema.Cols.SUSPECT));
+                    crime.setSuspect(suspect);
                     String date = cursor.getString(cursor.getColumnIndex(CrimeDBSchema.Cols.DATE));
                     crime.setDate(new Date(Long.valueOf(date)));
                     int solved = cursor.getInt(cursor.getColumnIndex(CrimeDBSchema.Cols.SOLVED));
@@ -67,6 +69,8 @@ public class CrimeLab {
                 crime.setId(UUID.fromString(uid));
                 String title = cursor.getString(cursor.getColumnIndex(CrimeDBSchema.Cols.TITLE));
                 crime.setTitle(title);
+                String suspect = cursor.getString(cursor.getColumnIndex(CrimeDBSchema.Cols.SUSPECT));
+                crime.setSuspect(suspect);
                 String date = cursor.getString(cursor.getColumnIndex(CrimeDBSchema.Cols.DATE));
                 crime.setDate(new Date(Long.valueOf(date)));
                 int solved = cursor.getInt(cursor.getColumnIndex(CrimeDBSchema.Cols.SOLVED));
@@ -97,6 +101,7 @@ public class CrimeLab {
         ContentValues cv = new ContentValues();
         cv.put(CrimeDBSchema.Cols.UUID, crime.getId().toString());
         cv.put(CrimeDBSchema.Cols.TITLE, crime.getTitle());
+        cv.put(CrimeDBSchema.Cols.SUSPECT, crime.getSuspect());
         cv.put(CrimeDBSchema.Cols.DATE, crime.getDate().getTime());
         cv.put(CrimeDBSchema.Cols.SOLVED, crime.isSolved() ? 1 : 0);
         return cv;

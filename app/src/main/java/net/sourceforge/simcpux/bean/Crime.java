@@ -17,6 +17,17 @@ public class Crime {
     //是否解决
     private boolean solved;
 
+    public String getSuspect() {
+        return suspect;
+    }
+
+    public void setSuspect(String suspect) {
+        this.suspect = suspect;
+    }
+
+    //嫌疑人姓名
+    private String suspect;
+
     public Crime(){
         id = UUID.randomUUID();
         date = new Date();

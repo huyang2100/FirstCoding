@@ -29,6 +29,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/btn_suspect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择联系人" />
+
     <CheckBox
         android:id="@+id/cb_sloved"
         android:layout_width="wrap_content"
