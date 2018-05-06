@@ -3,6 +3,7 @@ package net.sourceforge.simcpux.activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 
 import net.sourceforge.simcpux.app.FCApplication;
@@ -10,6 +11,7 @@ import net.sourceforge.simcpux.bean.Crime;
 import net.sourceforge.simcpux.dbhelper.CrimeDBHelper;
 import net.sourceforge.simcpux.schema.CrimeDBSchema;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -56,6 +58,14 @@ public class CrimeLab {
             }
         }
         return crimes;
+    }
+
+    public File getPhotoFile(Crime crime) {
+        File dir = new File(Environment.getExternalStorageDirectory(), "images");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        return new File(dir, crime.getPhotoFileName());
     }
 
     public Crime getCrime(UUID uuid) {

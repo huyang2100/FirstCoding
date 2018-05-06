@@ -6,17 +6,43 @@
     android:padding="16dp"
     tools:context="net.sourceforge.simcpux.fragment.CrimeFragment">
 
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="标题" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/et_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入标题" />
+        <ImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@android:color/darker_gray"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="?android:listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_photo"
+            android:text="标题" />
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_toRightOf="@id/iv_photo"
+            android:hint="请输入标题" />
+
+        <ImageButton
+            android:id="@+id/ib_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/iv_photo"
+            android:layout_alignRight="@id/iv_photo"
+            android:layout_below="@id/iv_photo"
+            android:src="@android:drawable/ic_menu_camera" />
+    </RelativeLayout>
+
 
     <TextView
         style="?android:listSeparatorTextViewStyle"

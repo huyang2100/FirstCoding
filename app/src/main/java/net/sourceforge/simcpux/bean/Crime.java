@@ -28,9 +28,13 @@ public class Crime {
     //嫌疑人姓名
     private String suspect;
 
-    public Crime(){
+    public Crime() {
         id = UUID.randomUUID();
         date = new Date();
+    }
+
+    public String getPhotoFileName() {
+        return "IMG_".concat(getId().toString()).concat(".jpg");
     }
 
     public UUID getId() {
