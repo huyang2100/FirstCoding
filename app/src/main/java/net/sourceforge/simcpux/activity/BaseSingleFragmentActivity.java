@@ -19,13 +19,17 @@ public abstract class BaseSingleFragmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_container);
+        setContentView(getReslayoutId());
         FragmentManager fm = getSupportFragmentManager();
         fragment = fm.findFragmentById(R.id.fragment_container);
         if(fragment == null){
             fragment = getFragment();
             fm.beginTransaction().add(R.id.fragment_container, fragment).commit();
         }
+    }
+
+    protected int getReslayoutId() {
+        return R.layout.fragment_container;
     }
 
     protected abstract Fragment getFragment();
