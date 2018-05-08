@@ -11,6 +11,10 @@ import android.widget.Chronometer;
 
 import net.sourceforge.simcpux.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 public class ChronometerActivity extends AppCompatActivity {
 
     private Chronometer chronometer;
@@ -26,7 +30,9 @@ public class ChronometerActivity extends AppCompatActivity {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
                 long t = SystemClock.elapsedRealtime() - chronometer.getBase();
-                chronometer.setText(DateFormat.format("kk:mm:ss", t));
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                sdf.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+                chronometer.setText(sdf.format(new Date(t)));
             }
         });
         findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener() {

@@ -300,6 +300,13 @@
             android:textAllCaps="false" />
 
         <Button
+            android:id="@+id/zxing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ZXing"
+            android:textAllCaps="false" />
+
+        <Button
             android:id="@+id/mukehome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

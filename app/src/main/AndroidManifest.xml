@@ -22,6 +22,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".app.FCApplication"
@@ -185,7 +186,12 @@
         <activity android:name=".activity.ConstraintLayoutActivity" />
         <activity android:name=".activity.CrimePagerActivity" />
         <activity android:name=".activity.AudioRecorderActivity" />
-        <activity android:name=".activity.ChronometerActivity"></activity>
+        <activity android:name=".activity.ChronometerActivity" />
+        <activity
+            android:name=".activity.ZXingActivity"
+            android:label="@string/title_activity_zxing"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

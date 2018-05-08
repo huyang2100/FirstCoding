@@ -400,6 +400,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(CriminalListActivity.newIntent(MainActivity.this));
             }
         });
+
+        findViewById(R.id.zxing).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(ZXingActivity.newIntent(MainActivity.this));
+            }
+        });
     }
 
     @Override

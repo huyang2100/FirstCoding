@@ -10,4 +10,8 @@
     <string name="menu_crime_size_show">显示数目</string>
     <string name="menu_crime_size_hide">隐藏数目</string>
     <string name="format_crime_size">%1$dcrimes</string>
+
+    <string name="title_activity_zxing">ZXingActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
