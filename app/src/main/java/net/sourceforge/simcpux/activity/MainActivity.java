@@ -380,6 +380,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.audio_recoder).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(AudioRecorderActivity.newIntent(MainActivity.this));
+            }
+        });
+
+        findViewById(R.id.chronometer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(ChronometerActivity.newIntent(MainActivity.this));
+            }
+        });
+
         findViewById(R.id.crimial).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -21,6 +21,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:name=".app.FCApplication"
@@ -182,7 +183,9 @@
         <activity android:name=".activity.CriminalActivity" />
         <activity android:name=".activity.CriminalListActivity" />
         <activity android:name=".activity.ConstraintLayoutActivity" />
-        <activity android:name=".activity.CrimePagerActivity"></activity>
+        <activity android:name=".activity.CrimePagerActivity" />
+        <activity android:name=".activity.AudioRecorderActivity" />
+        <activity android:name=".activity.ChronometerActivity"></activity>
     </application>
 
 </manifest>

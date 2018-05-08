@@ -286,6 +286,20 @@
             android:textAllCaps="false" />
 
         <Button
+            android:id="@+id/audio_recoder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AudioRecorder"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/chronometer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chronometer"
+            android:textAllCaps="false" />
+
+        <Button
             android:id="@+id/mukehome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
