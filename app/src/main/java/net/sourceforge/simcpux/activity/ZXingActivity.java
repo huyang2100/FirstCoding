@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -11,7 +13,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.jaeger.library.StatusBarUtil;
 
 import net.sourceforge.simcpux.R;
 
@@ -28,13 +37,47 @@ public class ZXingActivity extends AppCompatActivity implements QRCodeView.Deleg
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_zxing);
-
         initView();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.CAMERA);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+
+        if (!permissionList.isEmpty()) {
+            String[] permissions = permissionList.toArray(new String[permissionList.size()]);
+            ActivityCompat.requestPermissions(this, permissions, 1);
+            return;
+        }
+        startScan();
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initView() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        setContentView(R.layout.activity_zxing);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) toolbar.getLayoutParams();
+        layoutParams.setMargins(0, getStatusBarHeight(), 0, 0);
+        toolbar.setLayoutParams(layoutParams);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -42,6 +85,20 @@ public class ZXingActivity extends AppCompatActivity implements QRCodeView.Deleg
         }
         zXingView = findViewById(R.id.zxingview);
         zXingView.setDelegate(this);
+
+        final ImageView iv_flash = findViewById(R.id.iv_flash);
+        iv_flash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(iv_flash.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.flash_off).getConstantState())){
+                    zXingView.openFlashlight();
+                    iv_flash.setImageResource(R.drawable.flash_on);
+                }else{
+                    zXingView.closeFlashlight();
+                    iv_flash.setImageResource(R.drawable.flash_off);
+                }
+            }
+        });
     }
 
     private void vibrate() {
@@ -61,6 +118,7 @@ public class ZXingActivity extends AppCompatActivity implements QRCodeView.Deleg
                             Toast.makeText(this, "权限被拒绝", Toast.LENGTH_SHORT).show();
                             return;
                         }
+                        initView();
                         startScan();
                     }
                 } else {
@@ -69,24 +127,6 @@ public class ZXingActivity extends AppCompatActivity implements QRCodeView.Deleg
                 }
                 break;
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            permissionList.add(Manifest.permission.CAMERA);
-        }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-
-        if (!permissionList.isEmpty()) {
-            String[] permissions = permissionList.toArray(new String[permissionList.size()]);
-            ActivityCompat.requestPermissions(this, permissions, 1);
-            return;
-        }
-        startScan();
     }
 
     private void startScan() {
