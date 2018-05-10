@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jaeger.library.StatusBarUtil;
+
 import net.sourceforge.simcpux.R;
 import net.sourceforge.simcpux.adapter.WelcomeAdapter;
 import net.sourceforge.simcpux.log.L;

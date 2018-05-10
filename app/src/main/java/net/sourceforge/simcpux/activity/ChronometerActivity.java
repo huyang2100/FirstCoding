@@ -23,6 +23,7 @@ import net.sourceforge.simcpux.log.L;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,11 +49,13 @@ public class ChronometerActivity extends AppCompatActivity {
     private String updateTime;
     private MediaRecorder mRecorder;
     private MediaPlayer mPlayer;
-    private String mFileName;
     private ArrayList<String> permissionList = new ArrayList<>();
+    private ArrayList<File> fileList = new ArrayList<>();
 
     private static final String TAG = "ChronometerActivity";
-    private File file;
+    private File recordFile;
+    private File dir;
+    private boolean isStopRecord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +106,10 @@ public class ChronometerActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        if (file != null && file.exists()) {
-            file.delete();
+        for (File f : fileList) {
+            if (f.exists()) {
+                f.delete();
+            }
         }
         if (mRecorder != null) {
             mRecorder.release();
@@ -118,22 +123,20 @@ public class ChronometerActivity extends AppCompatActivity {
     }
 
     private void init() {
-        File dir = new File(Environment.getExternalStorageDirectory(), "/yidongzhushou/record");
+        dir = new File(Environment.getExternalStorageDirectory(), "/yidongzhushou/record");
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        file = new File(dir, System.currentTimeMillis() + ".amr");
-        mFileName = file.getAbsolutePath();
         chronometer = findViewById(R.id.chronometer);
         chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
             public void onChronometerTick(Chronometer ch) {
                 updateTime = getRecordTime(SystemClock.elapsedRealtime() - chronometer.getBase());
-                chronometer.setText(updateTime);
                 if (!TextUtils.isEmpty(recordTime) && recordTime.equals(updateTime)) {
                     initPlayBtn();
                     stopChronometer();
                 }
+                chronometer.setText(updateTime);
             }
         });
         btn_start = findViewById(R.id.btn_start);
@@ -162,9 +165,12 @@ public class ChronometerActivity extends AppCompatActivity {
         btn_over.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                recordTime = updateTime;
+                if (recordTime == null || recordTime.equals("00:00:00")) {
+                    return;
+                }
                 chageStatus(STATUS_OVER);
                 stopChronometer();
-                recordTime = updateTime;
             }
         });
         btn_play = findViewById(R.id.btn_play);
@@ -207,40 +213,49 @@ public class ChronometerActivity extends AppCompatActivity {
 
 
     private void startPlaying() {
+        if (!recordFile.exists()) {
+            Toast.makeText(this, "文件不存在！", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (mPlayer == null) {
             mPlayer = new MediaPlayer();
             try {
-                mPlayer.setDataSource(mFileName);
+                mPlayer.setDataSource(recordFile.getAbsolutePath());
                 mPlayer.prepare();
                 mPlayer.start();
             } catch (IOException e) {
-                L.e(TAG, "prepare() failed");
+                Toast.makeText(this, "播放失败：" + e.toString(), Toast.LENGTH_SHORT).show();
             }
         }
         mPlayer.start();
     }
 
-    private void startRecording() {
+    private void startRecord() {
+        isStopRecord = false;
+        File file = new File(dir, System.currentTimeMillis() + ".amr");
+        fileList.add(file);
         if (mRecorder == null) {
             mRecorder = new MediaRecorder();
-            mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            mRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
-            mRecorder.setOutputFile(mFileName);
-            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
-            try {
-                mRecorder.prepare();
-            } catch (IOException e) {
-                L.e(TAG, "prepare() failed");
-            }
-            mRecorder.start();
         }
+        mRecorder.reset();
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
+        mRecorder.setOutputFile(file.getAbsolutePath());
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
+            mRecorder.prepare();
+        } catch (IOException e) {
+            Toast.makeText(this, "录音失败：" + e.toString(), Toast.LENGTH_SHORT).show();
+        }
+        mRecorder.start();
     }
 
-    private void overRecording() {
-        mRecorder.stop();
-        mRecorder.release();
-        mRecorder = null;
+    private void stopRecord() {
+        if (!isStopRecord) {
+            isStopRecord = true;
+            mRecorder.stop();
+        }
     }
 
     private void initPlayBtn() {
@@ -267,25 +282,56 @@ public class ChronometerActivity extends AppCompatActivity {
                 btn_over.setEnabled(false);
                 break;
             case STATUS_START:
-                startRecording();
+                startRecord();
                 btn_start.setEnabled(false);
                 btn_stop.setEnabled(true);
                 btn_play.setEnabled(false);
                 btn_over.setEnabled(true);
                 break;
             case STATUS_STOP:
+                stopRecord();
                 btn_start.setEnabled(true);
                 btn_stop.setEnabled(false);
                 btn_play.setEnabled(false);
                 btn_over.setEnabled(true);
                 break;
             case STATUS_OVER:
-                overRecording();
+                stopRecord();
+                mergeRecord();
                 btn_start.setEnabled(false);
                 btn_stop.setEnabled(false);
                 btn_play.setEnabled(true);
                 btn_over.setEnabled(false);
                 break;
+        }
+    }
+
+    private void mergeRecord() {
+        if (fileList.size() == 1) {
+            recordFile = fileList.get(0);
+        } else {
+            try {
+                recordFile = new File(dir, "audio_record.amr");
+                if (recordFile.exists()) {
+                    recordFile.delete();
+                }
+                RandomAccessFile raf = new RandomAccessFile(recordFile, "rw");
+                byte[] buffer = new byte[1024];
+                int len = -1;
+                for (int i = 0; i < fileList.size(); i++) {
+                    RandomAccessFile temp = new RandomAccessFile(fileList.get(i), "rw");
+                    if (i > 0) {
+                        temp.seek(6);
+                    }
+                    while ((len = temp.read(buffer)) != -1) {
+                        raf.write(buffer, 0, len);
+                    }
+                    temp.close();
+                }
+                raf.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
