@@ -191,6 +191,7 @@
             android:name=".activity.ZXingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activity.ViewConnectActivity"></activity>
     </application>
 
 </manifest>

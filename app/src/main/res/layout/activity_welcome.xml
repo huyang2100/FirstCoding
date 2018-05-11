@@ -46,7 +46,7 @@
         android:paddingTop="10dp"
         android:text="进入应用"
         android:textColor="@android:color/white"
-        android:visibility="gone"
+
         app:btnCornerRadius="20dp"
         app:btnSolidColor="#607D8B" />
 </RelativeLayout>

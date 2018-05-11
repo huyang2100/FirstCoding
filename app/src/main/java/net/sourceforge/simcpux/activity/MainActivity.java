@@ -400,6 +400,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(ZXingActivity.newIntent(MainActivity.this));
             }
         });
+
+        findViewById(R.id.view_connect).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(ViewConnectActivity.newIntent(MainActivity.this));
+            }
+        });
     }
 
     @Override

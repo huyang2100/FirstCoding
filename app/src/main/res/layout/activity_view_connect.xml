@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    tools:context="net.sourceforge.simcpux.activity.ViewConnectActivity">
+
+
+    <FrameLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:cardBackgroundColor="@color/colorAccent"
+            app:cardCornerRadius="6dp">
+
+        </android.support.v7.widget.CardView>
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top"
+        android:layout_marginTop="10dp">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:cardBackgroundColor="@color/bg_screen2"
+            app:cardCornerRadius="6dp">
+
+        </android.support.v7.widget.CardView>
+    </FrameLayout>
+
+
+    <ImageView
+        android:id="@+id/dot_top_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/top"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/dot" />
+
+    <ImageView
+        android:id="@+id/dot_top_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/top"
+        android:layout_alignRight="@id/top"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/dot" />
+
+    <ImageView
+        android:id="@+id/dot_bottom_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/bottom"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/dot" />
+
+    <ImageView
+        android:id="@+id/dot_bottom_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/bottom"
+        android:layout_alignTop="@id/bottom"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/dot" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/dot_bottom_left"
+        android:layout_alignLeft="@id/dot_top_left"
+        android:layout_alignRight="@id/dot_top_left"
+        android:layout_alignTop="@id/dot_top_left"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/connect_line" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/dot_bottom_right"
+        android:layout_alignLeft="@id/dot_top_right"
+        android:layout_alignRight="@id/dot_top_right"
+        android:layout_alignTop="@id/dot_top_right"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/connect_line" />
+</RelativeLayout>
