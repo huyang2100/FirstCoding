@@ -4,8 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -20,18 +18,16 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.jaeger.library.StatusBarUtil;
-
 import net.sourceforge.simcpux.R;
 
 import java.util.ArrayList;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
-import cn.bingoogolapple.qrcode.zxing.ZXingView;
+import cn.bingoogolapple.qrcode.zbar.ZBarView;
 
 public class ZXingActivity extends AppCompatActivity implements QRCodeView.Delegate {
 
-    private ZXingView zXingView;
+    private ZBarView zBarView;
     private ArrayList<String> permissionList = new ArrayList<>();
 
     @Override
@@ -83,18 +79,18 @@ public class ZXingActivity extends AppCompatActivity implements QRCodeView.Deleg
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        zXingView = findViewById(R.id.zxingview);
-        zXingView.setDelegate(this);
+        zBarView = findViewById(R.id.zxingview);
+        zBarView.setDelegate(this);
 
         final ImageView iv_flash = findViewById(R.id.iv_flash);
         iv_flash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(iv_flash.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.flash_off).getConstantState())){
-                    zXingView.openFlashlight();
+                    zBarView.openFlashlight();
                     iv_flash.setImageResource(R.drawable.flash_on);
                 }else{
-                    zXingView.closeFlashlight();
+                    zBarView.closeFlashlight();
                     iv_flash.setImageResource(R.drawable.flash_off);
                 }
             }
@@ -130,19 +126,19 @@ public class ZXingActivity extends AppCompatActivity implements QRCodeView.Deleg
     }
 
     private void startScan() {
-        zXingView.startCamera();
-        zXingView.startSpotAndShowRect();
+        zBarView.startCamera();
+        zBarView.startSpotAndShowRect();
     }
 
     @Override
     protected void onStop() {
-        zXingView.stopCamera();
+        zBarView.stopCamera();
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        zXingView.onDestroy();
+        zBarView.onDestroy();
         super.onDestroy();
     }
 
@@ -154,7 +150,7 @@ public class ZXingActivity extends AppCompatActivity implements QRCodeView.Deleg
     public void onScanQRCodeSuccess(String result) {
         vibrate();
         Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-        zXingView.startSpot();
+        zBarView.startSpot();
     }
 
     @Override

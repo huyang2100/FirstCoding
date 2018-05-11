@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.ShareCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -394,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.zxing).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.zbar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(ZXingActivity.newIntent(MainActivity.this));

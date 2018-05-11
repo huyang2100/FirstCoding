@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="net.sourceforge.simcpux.activity.ZXingActivity">
 
-    <cn.bingoogolapple.qrcode.zxing.ZXingView
+    <cn.bingoogolapple.qrcode.zbar.ZBarView
         android:id="@+id/zxingview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
