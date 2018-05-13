@@ -24,6 +24,8 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -404,6 +406,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(ViewConnectActivity.newIntent(MainActivity.this));
+            }
+        });
+
+        final ImageButton iv_icon = findViewById(R.id.iv_icon);
+        iv_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean flag = iv_icon.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.record_audio_start).getConstantState();
+                if (flag) {
+                    iv_icon.setImageResource(R.drawable.record_audio_pause);
+                } else {
+                    iv_icon.setImageResource(R.drawable.record_audio_start);
+                }
             }
         });
     }
