@@ -313,14 +313,14 @@
             android:text="MuKeHome"
             android:textAllCaps="false" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/iv_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:src="@drawable/record_audio_start"
             android:background="@android:color/transparent"
-            android:padding="15dp"
-            android:src="@drawable/record_audio_start" />
+            android:padding="15dp" />
     </LinearLayout>
 
 </ScrollView>
