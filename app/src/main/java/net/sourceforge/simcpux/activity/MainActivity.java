@@ -455,6 +455,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return;
         }
+
         Intent intent = new Intent(Intent.ACTION_CALL);
         intent.setData(Uri.parse("tel://10086"));
         startActivity(intent);

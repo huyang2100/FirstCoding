@@ -13,6 +13,7 @@ import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
@@ -40,6 +41,7 @@ import net.sourceforge.simcpux.bean.Crime;
 
 import java.io.File;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -62,6 +64,7 @@ public class CrimeFragment extends Fragment {
     private File photoFile;
     private static final String TAG = "CrimeFragment";
     private ImageView iv_photo;
+    private ArrayList<String> permissionList = new ArrayList<>();
 
     public static CrimeFragment newInstance(UUID crimeId) {
         CrimeFragment fragment = new CrimeFragment();
@@ -106,15 +109,23 @@ public class CrimeFragment extends Fragment {
         }
     }
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case 1:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    takePicture();
+                if (grantResults.length > 0) {
+                    for (int permission : grantResults) {
+                        if (permission != PackageManager.PERMISSION_GRANTED) {
+                            Toast.makeText(getActivity(), "权限被拒绝", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        permissionList.clear();
+                        takePicture();
+                    }
                 } else {
-                    Toast.makeText(getActivity(), "您已关闭该权限", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "权限被拒绝", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -211,7 +222,13 @@ public class CrimeFragment extends Fragment {
 
     private void takePicture() {
         if (checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.CAMERA);
+        }
+        if (!permissionList.isEmpty()) {
+            requestPermissions(permissionList.toArray(new String[permissionList.size()]), 1);
             return;
         }
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
