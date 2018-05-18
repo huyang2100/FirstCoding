@@ -1,5 +1,6 @@
 package net.sourceforge.simcpux.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,6 +37,27 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView recyclerView;
     private CriminalAdapter criminalAdapter;
     private boolean isShowSubTitle = false;
+    private CallBacks mCallBacks;
+
+    public interface CallBacks {
+        void onCrimeSelected(Crime crime);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mCallBacks = (CallBacks) context;
+        } catch (Exception e) {
+            throw new ClassCastException("Activity未实现CallBacks!");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallBacks = null;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,7 +98,11 @@ public class CrimeListFragment extends Fragment {
             case R.id.menu_crime_add:
                 Crime crime = new Crime();
                 CrimeLab.get().add(crime);
-                startActivity(CrimePagerActivity.newIntent(getActivity(), crime.getId()));
+                updateUI();
+                if (mCallBacks != null) {
+                    mCallBacks.onCrimeSelected(crime);
+                }
+//                startActivity(CrimePagerActivity.newIntent(getActivity(), crime.getId()));
                 return true;
             case R.id.menu_crime_title_show:
                 isShowSubTitle = !isShowSubTitle;
@@ -97,7 +123,7 @@ public class CrimeListFragment extends Fragment {
         return v;
     }
 
-    private void updateUI() {
+    public void updateUI() {
         if (criminalAdapter == null) {
             criminalAdapter = new CriminalAdapter(CrimeLab.get().getCrimeList());
             recyclerView.setAdapter(criminalAdapter);
@@ -137,7 +163,9 @@ public class CrimeListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 //                    startActivity(CriminalActivity.newIntent(getActivity(), criminal.getId()));
-                    startActivity(CrimePagerActivity.newIntent(getActivity(), criminal.getId()));
+                    if (mCallBacks != null) {
+                        mCallBacks.onCrimeSelected(criminal);
+                    }
                 }
             });
         }

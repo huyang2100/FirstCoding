@@ -29,7 +29,7 @@ public abstract class BaseSingleFragmentActivity extends AppCompatActivity {
     }
 
     protected int getReslayoutId() {
-        return R.layout.fragment_container;
+        return R.layout.activity_single_fragment;
     }
 
     protected abstract Fragment getFragment();

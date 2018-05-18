@@ -15,7 +15,7 @@ import net.sourceforge.simcpux.fragment.CrimeFragment;
 import java.util.List;
 import java.util.UUID;
 
-public class CrimePagerActivity extends AppCompatActivity {
+public class CrimePagerActivity extends AppCompatActivity implements CrimeFragment.CallBacks{
 
     private static final String KEY_CRIME_ID = "crime_id";
 
@@ -52,5 +52,10 @@ public class CrimePagerActivity extends AppCompatActivity {
         Intent intent = new Intent(context, CrimePagerActivity.class);
         intent.putExtra(KEY_CRIME_ID,id);
         return intent;
+    }
+
+    @Override
+    public void onCrimeUpdate(Crime crime) {
+
     }
 }

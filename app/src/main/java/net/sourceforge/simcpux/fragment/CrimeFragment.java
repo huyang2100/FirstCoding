@@ -3,6 +3,7 @@ package net.sourceforge.simcpux.fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -65,6 +66,27 @@ public class CrimeFragment extends Fragment {
     private static final String TAG = "CrimeFragment";
     private ImageView iv_photo;
     private ArrayList<String> permissionList = new ArrayList<>();
+    private CallBacks mCallBacks;
+
+    public interface CallBacks {
+        void onCrimeUpdate(Crime crime);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mCallBacks = (CallBacks) context;
+        } catch (Exception e) {
+            throw new ClassCastException("Activity未实现CallBacks!");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallBacks = null;
+    }
 
     public static CrimeFragment newInstance(UUID crimeId) {
         CrimeFragment fragment = new CrimeFragment();
@@ -246,6 +268,9 @@ public class CrimeFragment extends Fragment {
 
     private void updateCrime() {
         CrimeLab.get().update(crime);
+        if (mCallBacks != null) {
+            mCallBacks.onCrimeUpdate(crime);
+        }
     }
 
     private void updateDate() {
