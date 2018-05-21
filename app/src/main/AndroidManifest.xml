@@ -43,8 +43,7 @@
             android:value="USnVoGBV3tM1qc0ISYBioUDbYsBypewO" />
 
         <activity android:name=".activity.RecyclerActivity" />
-        <activity
-            android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.Patch9Activity"
             android:windowSoftInputMode="adjustResize" />
@@ -186,7 +185,8 @@
             android:name=".activity.ZXingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activity.ViewConnectActivity"></activity>
+        <activity android:name=".activity.ViewConnectActivity" />
+        <activity android:name=".activity.StatusBarActivity"></activity>
     </application>
 
 </manifest>

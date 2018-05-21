@@ -410,6 +410,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.statusbar).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(StatusBarActivity.newIntent(MainActivity.this));
+            }
+        });
+
         final ImageView iv_icon = findViewById(R.id.iv_icon);
         iv_icon.setOnClickListener(new View.OnClickListener() {
             @Override

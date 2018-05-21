@@ -322,6 +322,13 @@
             android:layout_height="wrap_content"
             android:text="CriminalIntent"
             android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/statusbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="StatusBar"
+            android:textAllCaps="false" />
     </LinearLayout>
 
 </ScrollView>
