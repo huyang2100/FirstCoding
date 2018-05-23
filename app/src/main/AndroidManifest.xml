@@ -186,7 +186,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".activity.ViewConnectActivity" />
-        <activity android:name=".activity.StatusBarActivity"></activity>
+        <activity android:name=".activity.StatusBarActivity" />
+        <activity android:name=".activity.AlphabetActivity"></activity>
     </application>
 
 </manifest>

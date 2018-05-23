@@ -329,6 +329,13 @@
             android:layout_height="wrap_content"
             android:text="StatusBar"
             android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/alphabet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Alphabet"
+            android:textAllCaps="false" />
     </LinearLayout>
 
 </ScrollView>

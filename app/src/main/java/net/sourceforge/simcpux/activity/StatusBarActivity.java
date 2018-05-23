@@ -34,7 +34,6 @@ public class StatusBarActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 changeStatusBarAlpha(progress);
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 

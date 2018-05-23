@@ -417,6 +417,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.alphabet).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(AlphabetActivity.newIntent(MainActivity.this));
+            }
+        });
+
         final ImageView iv_icon = findViewById(R.id.iv_icon);
         iv_icon.setOnClickListener(new View.OnClickListener() {
             @Override
