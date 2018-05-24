@@ -9,8 +9,27 @@
     <ListView
         android:id="@+id/lv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
     </ListView>
+
+    <net.sourceforge.simcpux.view.AlphabetSlideBar
+        android:id="@+id/alphabet_slidebar"
+        android:layout_width="24dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_key"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_alphabet_key"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="48sp"
+        tools:text="B" />
 
 </RelativeLayout>
