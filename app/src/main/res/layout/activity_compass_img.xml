@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.CompassImgActivity">
+
+    <TextView
+        android:id="@+id/tv_before"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#3f00"
+        android:gravity="center"
+        android:textSize="24sp"
+        tools:text="之前：" />
+
+    <TextView
+        android:id="@+id/tv_after"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#30f0"
+        android:gravity="center"
+        android:textSize="24sp"
+        tools:text="之前：" />
+
+    <Button
+        android:id="@+id/btn_compass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="压缩" />
+</LinearLayout>

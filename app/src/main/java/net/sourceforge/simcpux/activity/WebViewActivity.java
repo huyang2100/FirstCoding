@@ -25,7 +25,8 @@ public class WebViewActivity extends AppCompatActivity {
     private void initData() {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("http://www.baidu.com/");
+//        webView.loadUrl("http://www.baidu.com/");
+        webView.loadUrl("http://ewmfk.bjrenrentong.com/commit.html");
     }
 
     @Override

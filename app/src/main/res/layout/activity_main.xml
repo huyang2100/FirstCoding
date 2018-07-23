@@ -336,6 +336,62 @@
             android:layout_height="wrap_content"
             android:text="Alphabet"
             android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/wakewxscan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WakeWXinScan"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/touchevent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TouchEvent"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/compassimg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CompressImg"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/soundpool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SoundPool"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/serianim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SeriaAnim"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/uploadsuggest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="UploadSuggestBack"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/aesencrypt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AES加密"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/login_anim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login_Anim"
+            android:textAllCaps="false" />
     </LinearLayout>
 
 </ScrollView>

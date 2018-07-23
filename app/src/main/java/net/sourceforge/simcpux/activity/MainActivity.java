@@ -7,16 +7,21 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
@@ -25,9 +30,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
@@ -37,10 +43,25 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 
 import net.sourceforge.simcpux.R;
 import net.sourceforge.simcpux.constant.ConstantReceiver;
+import net.sourceforge.simcpux.log.L;
 import net.sourceforge.simcpux.receiver.NetWorkReceiver;
+import net.sourceforge.simcpux.utils.AESCrypt;
 import net.sourceforge.simcpux.utils.PopUtil;
+import net.sourceforge.simcpux.view.ProgressRequestBody;
 import net.sourceforge.simcpux.wxapi.WXModule;
 
+import java.io.File;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
     private NetWorkReceiver netWorkReceiver;
     private IWXAPI wxapi;
     private long lastPressTime;
+    private int soundid;
+    private SoundPool soundPool;
+    private static final String TAG = "MainActivity";
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +84,13 @@ public class MainActivity extends AppCompatActivity {
         regToWX();
         initReceiver();
         initLisenter();
+
+        initData();
+    }
+
+    private void initData() {
+        soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        soundid = soundPool.load(this, R.raw.ding, 1);
     }
 
     @Override
@@ -424,6 +456,95 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.wakewxscan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    //利用Intent打开微信
+                    Intent intent = new Intent();
+                    intent.setComponent(new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI"));
+                    intent.putExtra("LauncherUI.From.Scaner.Shortcut", true);
+                    intent.putExtra("LauncherUI.From.Scaner.Data", Uri.parse("https://www.baidu.com/"));
+//                    intent.setData(Uri.parse("https://www.baidu.com/"));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setAction("android.intent.action.VIEW");
+                    startActivity(intent);
+                } catch (Exception e) {
+                    //若无法正常跳转，在此进行错误处理
+                    Toast.makeText(MainActivity.this, "无法跳转到微信，请检查您是否安装了微信！", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        findViewById(R.id.touchevent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(TouchEventActivity.newIntent(MainActivity.this));
+            }
+        });
+
+        findViewById(R.id.compassimg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(CompassImgActivity.newIntent(MainActivity.this));
+            }
+        });
+
+        findViewById(R.id.soundpool).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                soundPool.play(soundid, 1f, 1f, 1, 0, 1f);
+            }
+        });
+        findViewById(R.id.serianim).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(SeriAnimActivity.newIntent(MainActivity.this));
+            }
+        });
+        findViewById(R.id.uploadsuggest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadSuggest();
+            }
+        });
+        final Button btn_aes = findViewById(R.id.aesencrypt);
+        btn_aes.setOnClickListener(new View.OnClickListener() {
+
+            private String msgCrypt;
+
+            @Override
+            public void onClick(View v) {
+
+                if(btn_aes.getText().equals("AES加密")){
+                    btn_aes.setText("AES解密");
+                    try {
+                        msgCrypt = AESCrypt.encrypt("123","中国");
+                        Toast.makeText(MainActivity.this, msgCrypt, Toast.LENGTH_SHORT).show();
+                    } catch (GeneralSecurityException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    btn_aes.setText("AES加密");
+                    try {
+                        String msg = AESCrypt.decrypt("123", msgCrypt);
+                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    } catch (GeneralSecurityException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            }
+        });
+        findViewById(R.id.login_anim).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                overridePendingTransition(R.anim.slide_in_bottom,R.anim.slide_out_top);
+            }
+        });
+
         final ImageView iv_icon = findViewById(R.id.iv_icon);
         iv_icon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -434,6 +555,67 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     iv_icon.setImageResource(R.drawable.record_audio_start);
                 }
+            }
+        });
+    }
+
+    /**
+     * 上传意见反馈
+     */
+    private void uploadSuggest() {
+        OkHttpClient client = new OkHttpClient();
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        MultipartBody multipartBody = builder
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("data", "{\"ApplicationID\":null,\"Timestamp\":null,\"SecretKey\":null,\"Data\":{\"SystemId\":\"3519377481238839296\",\"Author\":null,\"Phone\":null,\"FeedbackText\":\"网上办公123456\",\"FeedbackVoice\":null,\"DisposeState\":0,\"DisposeState2\":0,\"DisposeState3\":0,\"Remarks\":null,\"CreateDate\":\"0001-01-01T00:00:00\"}}")
+                .addFormDataPart("imgcount", "5")
+                .addFormDataPart("imgstream1", "img1", RequestBody.create(MediaType.parse("image/jpg"), new File(Environment.getExternalStorageDirectory(), "/temp/test1.jpg")))
+                .addFormDataPart("imgstream2", "img2", RequestBody.create(MediaType.parse("image/jpg"), new File(Environment.getExternalStorageDirectory(), "/temp/test2.jpg")))
+                .addFormDataPart("imgstream3", "img3", RequestBody.create(MediaType.parse("image/jpg"), new File(Environment.getExternalStorageDirectory(), "/temp/test3.jpg")))
+                .addFormDataPart("imgstream4", "img4", RequestBody.create(MediaType.parse("image/jpg"), new File(Environment.getExternalStorageDirectory(), "/temp/test4.jpg")))
+                .addFormDataPart("imgstream5", "img5", RequestBody.create(MediaType.parse("image/jpg"), new File(Environment.getExternalStorageDirectory(), "/temp/test5.jpg")))
+                .build();
+
+        View view = View.inflate(this, R.layout.view_suggest_progress, null);
+        final ProgressBar pb = view.findViewById(R.id.pb);
+        final TextView tv = view.findViewById(R.id.tv);
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle("上传中...")
+                .setCancelable(false)
+                .setView(view)
+                .create();
+        alertDialog.show();
+
+        Request request = new Request.Builder()
+                .url("http://ewmfk.bjrenrentong.com/api/FeedbackService/FeedbackInfo/appadd")
+                .post(new ProgressRequestBody(multipartBody, new ProgressRequestBody.ProgressRequestListener() {
+                    @Override
+                    public void onProgress(long bytesWritten, long contentLength) {
+                        int progress = (int) ((bytesWritten * 100) / contentLength);
+                        pb.setProgress(progress);
+                        tv.setText(progress + "%");
+                    }
+                })).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                L.i(TAG, e.toString());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        alertDialog.dismiss();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        alertDialog.dismiss();
+                    }
+                });
             }
         });
     }
