@@ -10,4 +10,5 @@ public class ConstantSP {
     public static final String PWD = "pwd";
     public static final String WEATHER_ID = "weather_id";
     public static final String BING_PIC_URL = "bing_pic_url";
+    public static final String KEY_SEL_ITEM = "sel_item";
 }

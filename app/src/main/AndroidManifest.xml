@@ -30,11 +30,10 @@
         android:theme="@style/AppTheme">
 
         <!-- 声明service组件 -->
-        <!-- <service -->
-        <!-- android:name="com.baidu.location.f" -->
-        <!-- android:enabled="true" -->
-        <!-- android:process=":remote" /> -->
-
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
 
         <!-- AK鉴权 -->
         <!-- meta-data需要写在application中 -->
@@ -126,7 +125,7 @@
         <activity
             android:name=".activity.DownloadBestActivity"
             android:launchMode="singleTask" />
-        <!-- <activity android:name=".activity.LBSBaiduActivity" /> -->
+        <activity android:name=".activity.LBSBaiduActivity" />
         <activity
             android:name=".activity.MaterialDesignActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -190,7 +189,8 @@
         <activity android:name=".activity.AlphabetActivity" />
         <activity android:name=".activity.TouchEventActivity" />
         <activity android:name=".activity.CompassImgActivity" />
-        <activity android:name=".activity.SeriAnimActivity"></activity>
+        <activity android:name=".activity.SeriAnimActivity" />
+        <activity android:name=".activity.JustifyTextActivity"></activity>
     </application>
 
 </manifest>

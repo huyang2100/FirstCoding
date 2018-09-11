@@ -392,6 +392,27 @@
             android:layout_height="wrap_content"
             android:text="Login_Anim"
             android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/bug_crash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test_Bug_Crash"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/justifytext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="JustifyText"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/choice_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ChoiceDialog"
+            android:textAllCaps="false" />
     </LinearLayout>
 
 </ScrollView>

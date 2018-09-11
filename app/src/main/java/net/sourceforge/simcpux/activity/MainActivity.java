@@ -36,6 +36,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXTextObject;
@@ -43,10 +44,12 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 
 import net.sourceforge.simcpux.R;
 import net.sourceforge.simcpux.constant.ConstantReceiver;
+import net.sourceforge.simcpux.constant.ConstantSP;
 import net.sourceforge.simcpux.log.L;
 import net.sourceforge.simcpux.receiver.NetWorkReceiver;
 import net.sourceforge.simcpux.utils.AESCrypt;
 import net.sourceforge.simcpux.utils.PopUtil;
+import net.sourceforge.simcpux.utils.SPUtil;
 import net.sourceforge.simcpux.view.ProgressRequestBody;
 import net.sourceforge.simcpux.wxapi.WXModule;
 
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private SoundPool soundPool;
     private static final String TAG = "MainActivity";
     private Handler handler = new Handler();
+    private int selItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -342,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.lbs_baidu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                LBSBaiduActivity.actionStart(MainActivity.this);
+                LBSBaiduActivity.actionStart(MainActivity.this);
             }
         });
 
@@ -516,15 +520,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(btn_aes.getText().equals("AES加密")){
+                if (btn_aes.getText().equals("AES加密")) {
                     btn_aes.setText("AES解密");
                     try {
-                        msgCrypt = AESCrypt.encrypt("123","中国");
+                        msgCrypt = AESCrypt.encrypt("123", "中国");
                         Toast.makeText(MainActivity.this, msgCrypt, Toast.LENGTH_SHORT).show();
                     } catch (GeneralSecurityException e) {
                         e.printStackTrace();
                     }
-                }else{
+                } else {
                     btn_aes.setText("AES加密");
                     try {
                         String msg = AESCrypt.decrypt("123", msgCrypt);
@@ -540,8 +544,55 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.login_anim).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                overridePendingTransition(R.anim.slide_in_bottom,R.anim.slide_out_top);
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+            }
+        });
+        findViewById(R.id.bug_crash).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int num = 9 / 0;
+            }
+        });
+
+        findViewById(R.id.justifytext).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JustifyTextActivity.actionStart(MainActivity.this);
+            }
+        });
+
+        findViewById(R.id.choice_dialog).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //多选
+//                new AlertDialog.Builder(MainActivity.this)
+//                        .setMultiChoiceItems(new String[]{"选项一", "选项二"}, new boolean[]{true, false}, new DialogInterface.OnMultiChoiceClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+//
+//                            }
+//                        }).create().show();
+
+                //单选
+                selItem = SPUtil.getInt(ConstantSP.KEY_SEL_ITEM);
+                new AlertDialog.Builder(MainActivity.this)
+                        .setSingleChoiceItems(new String[]{"审判法官", "执行法官"}, selItem, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                selItem = which;
+                            }
+                        })
+                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+                                SPUtil.putInt(ConstantSP.KEY_SEL_ITEM, selItem);
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("取消", null).create().show();
             }
         });
 

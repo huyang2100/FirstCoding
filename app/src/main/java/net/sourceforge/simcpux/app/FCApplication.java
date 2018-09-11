@@ -3,6 +3,7 @@ package net.sourceforge.simcpux.app;
 import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.view.View;
 
 
@@ -12,6 +13,7 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import net.sourceforge.simcpux.R;
 
@@ -39,6 +41,7 @@ public class FCApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        CrashReport.initCrashReport(getApplicationContext(), "27314ebfdd", true);
     }
 
     public static Context getContext() {
