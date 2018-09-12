@@ -413,6 +413,20 @@
             android:layout_height="wrap_content"
             android:text="ChoiceDialog"
             android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_xml_pull"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="XmlPullParser"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_xml_sax"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="XmlSaxParser"
+            android:textAllCaps="false" />
     </LinearLayout>
 
 </ScrollView>

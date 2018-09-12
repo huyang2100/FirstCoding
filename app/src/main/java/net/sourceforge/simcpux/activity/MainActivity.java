@@ -43,6 +43,7 @@ import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 
 import net.sourceforge.simcpux.R;
+import net.sourceforge.simcpux.bean.App;
 import net.sourceforge.simcpux.constant.ConstantReceiver;
 import net.sourceforge.simcpux.constant.ConstantSP;
 import net.sourceforge.simcpux.log.L;
@@ -52,10 +53,26 @@ import net.sourceforge.simcpux.utils.PopUtil;
 import net.sourceforge.simcpux.utils.SPUtil;
 import net.sourceforge.simcpux.view.ProgressRequestBody;
 import net.sourceforge.simcpux.wxapi.WXModule;
+import net.sourceforge.simcpux.xml.MyHandler;
+
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -77,6 +94,23 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private Handler handler = new Handler();
     private int selItem;
+    private String xmlStr = "<apps>\n" +
+            "\t<app>\n" +
+            "\t\t<id>1</id>\n" +
+            "\t\t<name>Chrome</name>\n" +
+            "\t\t<version>1.0</version>\n" +
+            "\t</app>\n" +
+            "\t<app>\n" +
+            "\t\t<id>2</id>\n" +
+            "\t\t<name>Android</name>\n" +
+            "\t\t<version>9.0</version>\n" +
+            "\t</app>\n" +
+            "\t<app>\n" +
+            "\t\t<id>3</id>\n" +
+            "\t\t<name>Firefox</name>\n" +
+            "\t\t<version>2.2</version>\n" +
+            "\t</app>\n" +
+            "</apps>";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -608,6 +642,66 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        findViewById(R.id.btn_xml_pull).setOnClickListener(new View.OnClickListener() {
+
+            private App app;
+
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    XmlPullParser xmlPullParser = XmlPullParserFactory.newInstance().newPullParser();
+                    xmlPullParser.setInput(new StringReader(xmlStr));
+                    int eventType = xmlPullParser.getEventType();
+                    ArrayList<App> appList = new ArrayList<>();
+                    while (eventType != XmlPullParser.END_DOCUMENT) {
+                        String tagName = xmlPullParser.getName();
+                        switch (eventType) {
+                            case XmlPullParser.START_TAG:
+                                if (tagName.equals("app")) {
+                                    app = new App();
+                                } else if (tagName.equals("id")) {
+                                    app.setId(xmlPullParser.nextText());
+                                } else if (tagName.equals("name")) {
+                                    app.setName(xmlPullParser.nextText());
+                                } else if (tagName.equals("version")) {
+                                    app.setVersion(xmlPullParser.nextText());
+                                }
+                                break;
+                            case XmlPullParser.END_TAG:
+                                if(tagName.equals("app")){
+                                    appList.add(app);
+                                }
+                                break;
+                        }
+
+                        eventType = xmlPullParser.next();
+                    }
+
+                    Toast.makeText(MainActivity.this, Arrays.toString(appList.toArray()), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        findViewById(R.id.btn_xml_sax).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
+                    MyHandler myHandler = new MyHandler();
+                    XMLReader xmlReader = saxParser.getXMLReader();
+                    xmlReader.setContentHandler(myHandler);
+                    xmlReader.parse(new InputSource(new StringReader(xmlStr)));
+                    Toast.makeText(MainActivity.this, Arrays.toString(myHandler.getAppList().toArray()), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
     /**
