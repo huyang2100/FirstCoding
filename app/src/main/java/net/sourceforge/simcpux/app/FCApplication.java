@@ -14,6 +14,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.tencent.tinker.loader.app.TinkerApplication;
+import com.tencent.tinker.loader.shareutil.ShareConstants;
 
 import net.sourceforge.simcpux.R;
 
@@ -21,7 +23,12 @@ import net.sourceforge.simcpux.R;
  * Created by yanghu on 2018/4/10.
  */
 
-public class FCApplication extends Application {
+public class FCApplication extends TinkerApplication {
+
+    public FCApplication() {
+        super(ShareConstants.TINKER_ENABLE_ALL, "net.sourceforge.simcpux.app.SampleApplicationLike",
+                "com.tencent.tinker.loader.TinkerLoader", false);
+    }
 
     private static Context context;
     static {
@@ -41,7 +48,6 @@ public class FCApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
-        CrashReport.initCrashReport(getApplicationContext(), "27314ebfdd", true);
     }
 
     public static Context getContext() {

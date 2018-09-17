@@ -158,6 +158,8 @@ public class MainActivity extends AppCompatActivity {
             broadcastManager.unregisterReceiver(netWorkReceiver);
             netWorkReceiver = null;
         }
+
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
     private void initLisenter() {
