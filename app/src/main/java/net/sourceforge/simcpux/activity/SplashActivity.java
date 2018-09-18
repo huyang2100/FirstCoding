@@ -1,11 +1,13 @@
 package net.sourceforge.simcpux.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
@@ -31,6 +33,13 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
         }
 
         setContentView(R.layout.activity_splash);
+        TextView tv_version = findViewById(R.id.tv_version);
+        try {
+            String versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            tv_version.setText("版本："+versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         ImageView iv = findViewById(R.id.iv);
         Glide.with(this).load("https://open.saintic.com/api/bingPic/").transition(DrawableTransitionOptions.withCrossFade()).into(iv);
         handler.postDelayed(this, 2000);

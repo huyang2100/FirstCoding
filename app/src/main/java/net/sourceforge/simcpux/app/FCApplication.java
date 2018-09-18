@@ -19,6 +19,8 @@ import com.tencent.tinker.loader.shareutil.ShareConstants;
 
 import net.sourceforge.simcpux.R;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by yanghu on 2018/4/10.
  */
@@ -48,6 +50,8 @@ public class FCApplication extends TinkerApplication {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     public static Context getContext() {
