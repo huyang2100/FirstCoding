@@ -5,8 +5,14 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import net.sourceforge.simcpux.R;
+import net.sourceforge.simcpux.constant.ConstantSP;
 import net.sourceforge.simcpux.manager.PrefManager;
 
 public class SplashActivity extends AppCompatActivity implements Runnable {
@@ -24,7 +30,10 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
             return;
         }
 
-        handler.postDelayed(this, 500);
+        setContentView(R.layout.activity_splash);
+        ImageView iv = findViewById(R.id.iv);
+        Glide.with(this).load("https://open.saintic.com/api/bingPic/").transition(DrawableTransitionOptions.withCrossFade()).into(iv);
+        handler.postDelayed(this, 2000);
     }
 
     @Override
