@@ -9,6 +9,8 @@ import net.sourceforge.simcpux.app.FCApplication;
 
 public class SPUtil {
 
+    public static final String KEY_DAY_OF_MONTH = "day_of_month";
+
     public static void putString(String key, String value) {
         getSP().edit().putString(key, value).commit();
     }
