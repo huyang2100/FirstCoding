@@ -38,7 +38,11 @@ public class OkHttpMananger {
         void onErr(Exception e);
     }
 
-    private static OkHttpMananger getInstance() {
+    public OkHttpClient getClient(){
+        return client;
+    }
+
+    public static OkHttpMananger getInstance() {
         return instance;
     }
 

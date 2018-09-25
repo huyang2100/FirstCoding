@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="net.sourceforge.simcpux.activity.DownloadBestActivity">
 
-    <Button
-        android:id="@+id/btn_start_download"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="start download"
-        android:textAllCaps="false" />
+        android:layout_centerInParent="true"
+        android:textSize="48sp"
+        android:id="@+id/tv"
+        android:textColor="@android:color/holo_green_light"/>
 
-    <SeekBar
-        android:id="@+id/sb"
+
+    <Button
+        android:id="@+id/btn_download"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:max="100" />
-</FrameLayout>
+        android:text="下载"/>
+
+</RelativeLayout>
